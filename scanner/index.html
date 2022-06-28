@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Nowhere Entry</title>
+    <meta name="description" content="Nowhere Entry" />
+    <link rel="stylesheet" href="/css/beep.css" />
+    <script src="/js/jquery.min.js"></script>
+</HEAD>
+<BODY>
+
+<DIV ID='maindiv'>
+  <DIV ID='mdiv' CLASS='eebody white'>
+    <DIV ID='scanpage' CLASS='infoblock'>
+      <DIV CLASS='headercontainer'>
+        <DIV CLASS='txtheader'>Scan barcode</DIV>
+      </DIV>
+      <DIV CLASS='bcodeinput'><INPUT TYPE='text' ID='bcode'></DIV>
+    </DIV>
+
+    <DIV ID='idcheck' CLASS='hidden'>
+      <DIV CLASS='txtblock'>
+	<DIV CLASS='headercontainer'>
+          <DIV CLASS='txtheader'>Name</DIV>
+	</DIV>
+	<DIV CLASS='txttxt' ID='idname'>Bob Smith</DIV>
+      </DIV>
+      <DIV CLASS='txtblock'>
+        <DIV CLASS='txtheader'>ID</DIV>
+	<DIV CLASS='txttxt' ID='idid'>A123455234CY</DIV>
+	<DIV CLASS='txtinfo'>Verify name and ID against documents and then scan barcode again. If the name and ID don't match, just hit enter.</DIV>
+	<INPUT TYPE='hidden' ID='current_bcode' NAME='cbc' VALUE=''>
+        <DIV CLASS='bcodeinput'><INPUT TYPE='text' ID='verifybcode'></DIV>
+      </DIV>
+    </DIV>
+
+    <DIV ID='errordiv' CLASS='hidden'>
+    <DIV CLASS='infoblock'>
+      <DIV CLASS='headercontainer'>
+        <DIV CLASS='txtheader'>Error</DIV>
+      </DIV>
+      <DIV CLASS='txttxt' ID='errorclass'>Something went wrong!</DIV>
+    </DIV>
+    <DIV CLASS='infoblock'>
+      <DIV CLASS='headercontainer'>
+        <DIV CLASS='txtheader'>Solution</DIV>
+      </DIV>
+      <DIV CLASS='txttxt' ID='errorsolution'>Panic and run round with your hands in the air!</DIV>
+    </DIV>
+  </DIV>
+</DIV>
+
+<DIV CLASS='flush'>
+  <DIV ID='fsc' CLASS='flushtext'>Flush scanner cache</DIV>
+  <DIV ID='fqc' CLASS='flushtext'>Flush Quicket cache</DIV>
+</DIV>
+
+<DIV CLASS='hidden' ID='spinspin'>
+  <DIV CLASS='loader'></DIV>
+</DIV>
+<script src="/js/beep.js"></script>
+
+</BODY>
+</HTML>

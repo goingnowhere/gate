@@ -1,0 +1,113 @@
+#maindiv{
+  margin: 100px;
+}
+
+.eebody {
+  border-radius: 5px;
+  border-style: solid;
+  border-width: 1px;
+  max-width: 400px;
+  padding: 10px;
+  margin: 5px;
+}
+
+.hidden{
+  display: none;
+}
+
+.shown{
+  display: block;
+}
+
+.white{
+  background-color: white;
+}
+
+.green{
+  background-color: green;
+}
+
+.red{
+  background-color: red;
+}
+
+.txtblock {
+}
+
+.headercontainer {
+  display: inline-block;
+  min-width: 200px;
+}
+
+.txtheader {
+  margin: 5px;
+  padding: 10px;
+  background-color: #ccd9ff;
+  font-weight: bold;
+  font-size: 14px;
+  border-radius: 5px;
+  max-width: 110px;
+}
+
+.txttxt{
+  display: inline-block;
+  max-width: 110px;
+}
+
+.bcodeinput{
+  display: inline-block;
+}
+
+.flush {
+  position: fixed;
+  top: 1em;
+  right: 1em;
+}
+
+.flushtext {
+  background-color: #ccf5ff;
+  border-radius: 3px;
+  margin: 5px;
+  padding: 3px;
+  cursor: pointer;
+}
+
+.spinner {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.loader {
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid black;
+  border-bottom: 16px solid red;
+  border-right: 16px solid white;
+  border-left: 16px solid green;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite;
+  /* Setting up animation in any browser */
+  animation: spin 2s linear infinite;
+}
+
+/* browser configuration */
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
