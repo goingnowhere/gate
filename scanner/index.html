@@ -26,9 +26,22 @@
 	</DIV>
 	<DIV CLASS='txttxt' ID='idname'>Bob Smith</DIV>
       </DIV>
+
+      <DIV ID='xxcheck' CLASS='hidden'>
+	<DIV CLASS='headercontainer'>
+          <DIV CLASS='txtheader'>Extra check</DIV>
+	</DIV>
+	<DIV CLASS='txttxt' ID='extra_check'>This is a non-standard ticket which requires extra checking!</DIV>
+      </DIV>
+
       <DIV CLASS='txtblock'>
-        <DIV CLASS='txtheader'>ID</DIV>
+	<DIV CLASS='headercontainer'>
+          <DIV CLASS='txtheader'>ID</DIV>
+	</DIV>
 	<DIV CLASS='txttxt' ID='idid'>A123455234CY</DIV>
+      </DIV>
+
+      <DIV CLASS='txtblock'>
 	<DIV CLASS='txtinfo'>Verify name and ID against documents and then scan barcode again. If the name and ID don't match, just hit enter.</DIV>
 	<INPUT TYPE='hidden' ID='current_bcode' NAME='cbc' VALUE=''>
         <DIV CLASS='bcodeinput'><INPUT TYPE='text' ID='verifybcode'></DIV>
@@ -52,8 +65,7 @@
 </DIV>
 
 <DIV CLASS='flush'>
-  <DIV ID='fsc' CLASS='flushtext'>Flush scanner cache</DIV>
-  <DIV ID='fqc' CLASS='flushtext'>Flush Quicket cache</DIV>
+  <DIV ID='fqc' CLASS='flushtext'>Flush cache</DIV>
 </DIV>
 
 <DIV CLASS='hidden' ID='spinspin'>
