@@ -1,0 +1,53 @@
+{
+    "name": "dev",
+    // "image": "mcr.microsoft.com/devcontainers/typescript-node:0-20",
+    // "image": "localhost/vsc-gate-f0a33504931c449f8af93d7d953d55f1b4eb4122c6b4c83dcf54093335e3be79-uid",
+
+    // "build": {
+    //     "dockerfile": "Dockerfile",
+    // },
+
+    // podman build ./.devcontainer/ --tag dev --build-arg GID=$(id -g) --build-arg UID=$(id -u) --build-arg USER=$(id -un)
+    // podman run -it --rm --name dev --mount src=vscode-server,target=/.vscode-server,type=volume --mount src=/home/freddie,target=/home/freddie,type=bind --hostuser freddie --user freddie --userns=keep-id dev bash
+    "image": "dev",
+
+    "remoteUser": "freddie",
+    "containerUser": "freddie",
+    "containerEnv": {
+        "SHELL": "/bin/bash"
+    },
+    "runArgs": [
+        "--userns=keep-id",
+        // "--annotation run.oci.keep_original_groups=1"
+    ],
+    "mounts": [
+        // {
+        //     "source": "/home/freddie",
+        //     "target": "/home/freddie",
+        //     "type": "bind"
+        // },
+        // {
+        //     "source": "vscode-server",
+        //     "target": "/home/freddie/.vscode-server",
+        //     "type": "volume"
+        // }
+        "src=/home/freddie,target=/home/freddie,type=bind,consistency=cached",
+        "src=vscode-server,target=/home/freddie/.vscode-server,type=volume,chown=true"
+    ],
+    "workspaceFolder": "/home/freddie/gitroot/gate",
+    // "workspaceMount": "src=/home/freddie/gitroot/gate,target=/home/freddie/gitroot/gate,type=bind,consistency=cached",
+    // "postCreateCommand": "sudo chown freddie:freddie /home/freddie/.vscode-server",
+    // docker run --sig-proxy=false -a STDOUT -a STDERR --mount type=bind,source=/home/freddie/gitroot/gate,target=/workspaces/gate --mount type=bind,src=/home/freddie,dst=/home/freddie --mount src=vscode-server,target=/home/freddie/.vscode-server,type=volume,U=true --mount type=volume,src=vscode,dst=/vscode -l devcontainer.local_folder=/home/freddie/gitroot/gate -l devcontainer.config_file=/home/freddie/gitroot/gate/.devcontainer/devcontainer.json -e SHELL=/bin/bash -u freddie --userns=keep-id --annotation run.oci.keep_original_groups=1 --entrypoint /bin/sh vsc-gate-9208932273c9a5efd9e7b0789357f4c695f5b12fe6ffc3c588b1ba6b1a245ca0-uid -c echo Container started
+
+    // docker run --rm -it --sig-proxy=false --mount type=bind,source=/home/freddie/gitroot/gate,target=/workspaces/gate --mount type=bind,src=/home/freddie,dst=/home/freddie --mount src=vscode-server,target=/home/freddie/.vscode-server,type=volume,U=true --mount type=volume,src=vscode,dst=/vscode -l devcontainer.local_folder=/home/freddie/gitroot/gate -l devcontainer.config_file=/home/freddie/gitroot/gate/.devcontainer/devcontainer.json -e SHELL=/bin/bash -u freddie --userns=keep-id --annotation run.oci.keep_original_groups=1 vsc-gate-9208932273c9a5efd9e7b0789357f4c695f5b12fe6ffc3c588b1ba6b1a245ca0-uid bash
+
+    "customizations": {
+        "vscode": {
+            "extensions": [],
+            "settings": {
+                // "terminal.integrated.shell.linux": "/bin/bash"
+            }
+        }
+    }
+
+}
