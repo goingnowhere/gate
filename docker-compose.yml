@@ -3,7 +3,7 @@ version: "3.7"
 services:
   nginx:
     container_name: gate_nginx
-    image: docker.io/nginx
+    build: ./nginx/
     ports:
       - 80:80
       - 443:443
