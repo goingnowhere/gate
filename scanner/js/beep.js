@@ -2,13 +2,16 @@ var sescookie = getCookie('eesession');
 var checkbcode = '';
 const goodaudio = new Audio("https://app.goingnowhere.org/sounds/boing.wav");
 const badaudio = new Audio("https://app.goingnowhere.org/sounds/argg.wav");
+const barcodeScanner = new Html5QrcodeScanner(
+  "barcode_scanner", { fps: 10, qrbox: 250 }
+);
 
 // Listen for a barcode to be entered
 document.getElementById("bcode").addEventListener("keypress", function (e) {
   if (e.key === 'Enter') {
     let rawtext = document.getElementById('bcode').value;
     document.getElementById('bcode').value = '';
-    document.getElementById('current_bcode').value = rawtext;
+    document.getElementById('current_bcode').value = barcode;
     //spin while waiting
     document.getElementById('spinspin').className = 'spinning';
     check_barcode(rawtext);
@@ -34,6 +37,10 @@ document.getElementById("fqc").addEventListener("click", function (e) {
 
 // make sure cursor is in text box on load
 window.onload = function () {
+  barcodeScanner.render((scannedBarcode) => {
+    document.getElementById("bcode").value = scannedBarcode;
+    check_barcode(scannedBarcode);
+  });
   $("#bcode").focus();
 };
 
