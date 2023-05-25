@@ -44,7 +44,7 @@ window.onload = function () {
 
 function flush_quicket() {
   let postdata = { 'session': 'ksdfEDF45Fefa945df3F45fDer3E69EF03C42CCfdaawelvqeE4f5F2slFc935Cq' };
-  var purl = 'https://checkin.goingnowhere.org:2443/flushcache';
+  var purl = 'https://localhost/flushcache'; //'https://checkin.goingnowhere.org:2443/flushcache';
 
   jQuery.ajax({
     url: purl,
@@ -84,7 +84,7 @@ function check_in(barcode) {
     'session': 'ksdfEDF45Fefa945df3F45fDer3E69EF03C42CCfdaawelvqeE4f5F2slFc935Cq',
     'barcode': barcode
   };
-  var purl = 'https://checkin.goingnowhere.org:2443/checkin'
+  var purl = 'https://localhost/checkin'; //'https://checkin.goingnowhere.org:2443/checkin'
 
   jQuery.ajax({
     url: purl,
@@ -132,7 +132,8 @@ function check_in(barcode) {
 
     },
     error: function (request, status, error) {
-      alert("Something went wrong with the API call - probably the wifi is down.");
+      // alert("Something went wrong with the API call - probably the wifi is down.");
+      alert("Pretending to check in: " + barcode);
     }
   });
   $("#bcode").focus();
@@ -145,7 +146,7 @@ function check_barcode(barcode) {
     'session': 'ksdfEDF45Fefa945df3F45fDer3E69EF03C42CCfdaawelvqeE4f5F2slFc935Cq',
     'barcode': barcode
   };
-  var purl = 'https://checkin.goingnowhere.org:2443/barcode'
+  var purl = 'https://localhost/barcode'; //'https://checkin.goingnowhere.org:2443/barcode'
   jQuery.ajax({
     url: purl,
     cache: 'false',
@@ -228,7 +229,8 @@ function check_barcode(barcode) {
 
     },
     error: function (request, status, error) {
-      alert("Something went wrong with the API call - probably the wifi is down.");
+      // alert("Something went wrong with the API call - probably the wifi is down.");
+      alert("Pretending to check barcode " + barcode);
     }
   });
 }
