@@ -45,7 +45,8 @@
 }
 
 .txtheader {
-  margin: 5px;
+  /* margin: 5px; */
+  margin-bottom: 15px;
   padding: 10px;
   background-color: #ccd9ff;
   font-weight: bold;
@@ -54,13 +55,40 @@
   max-width: 110px;
 }
 
-.txttxt {
-  display: inline-block;
-  max-width: 110px;
+.inputcontainer {
+  margin-top: 10px;
+  width: 100%;
 }
 
 .bcodeinput {
   display: inline-block;
+  width: auto;
+}
+
+button {
+  padding: 0;
+  border: none;
+}
+
+.manualbutton {
+  margin: 0;
+  display: inline-block;
+  background-color: #33d266;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 14px;
+  border-radius: 5px;
+  width: 40px;
+  border: none;
+}
+
+.txttxt {
+  display: inline-block;
+  max-width: 110px;
 }
 
 .flush {

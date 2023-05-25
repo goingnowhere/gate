@@ -18,10 +18,15 @@
           <div class='txtheader'>Scan barcode</div>
         </div>
 
-        <div style="width: 100%" id="barcode_scanner"></div>
+        <div id="barcode_scanner"></div>
 
-        <div class='bcodeinput'>
-          <input type='text' id='bcode'>
+        <div class="inputcontainer">
+          <div class='bcodeinput'>
+            <input type='text' inputmode='numeric' id='bcode'>
+          </div>
+          <button type="button" id="manualbutton">
+            <div class='manualbutton'>Go!</div>
+          </button>
         </div>
       </div>
 
