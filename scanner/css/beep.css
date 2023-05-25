@@ -1,14 +1,20 @@
 #maindiv {
-  margin: 100px;
+  display: flex;
+  justify-content: center;
 }
 
 .eebody {
+  display: block;
   border-radius: 5px;
   border-style: solid;
   border-width: 1px;
-  max-width: 400px;
   padding: 10px;
-  margin: 5px;
+  margin: 15px;
+}
+
+#barcode_scanner {
+  min-width: 360px;
+  max-width: 500px;
 }
 
 .hidden {
