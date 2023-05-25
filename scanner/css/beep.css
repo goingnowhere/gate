@@ -1,4 +1,4 @@
-#maindiv{
+#maindiv {
   margin: 100px;
 }
 
@@ -11,28 +11,27 @@
   margin: 5px;
 }
 
-.hidden{
+.hidden {
   display: none;
 }
 
-.shown{
+.shown {
   display: block;
 }
 
-.white{
+.white {
   background-color: white;
 }
 
-.green{
+.green {
   background-color: green;
 }
 
-.red{
+.red {
   background-color: red;
 }
 
-.txtblock {
-}
+.txtblock {}
 
 .headercontainer {
   display: inline-block;
@@ -49,12 +48,12 @@
   max-width: 110px;
 }
 
-.txttxt{
+.txttxt {
   display: inline-block;
   max-width: 110px;
 }
 
-.bcodeinput{
+.bcodeinput {
   display: inline-block;
 }
 
@@ -98,6 +97,7 @@
   0% {
     -webkit-transform: rotate(0deg);
   }
+
   100% {
     -webkit-transform: rotate(360deg);
   }
@@ -107,6 +107,7 @@
   0% {
     transform: rotate(0deg);
   }
+
   100% {
     transform: rotate(360deg);
   }
