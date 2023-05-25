@@ -10,13 +10,14 @@ const barcodeScanner = new Html5QrcodeScanner(
 // Listen for a barcode to be entered
 document.getElementById("bcode").addEventListener("keypress", function (e) {
   if (e.key === 'Enter') {
-    let rawtext = document.getElementById('bcode').value;
-    document.getElementById('bcode').value = '';
-    document.getElementById('current_bcode').value = rawtext;
-    //spin while waiting
-    document.getElementById('spinspin').className = 'spinning';
-    check_barcode(rawtext);
+    let barcode = document.getElementById('bcode').value;
+    check_barcode(barcode);
   }
+});
+
+document.getElementById("manualbutton").addEventListener("click", function (e) {
+  let barcode = document.getElementById('bcode').value;
+  check_barcode(barcode);
 });
 
 // Listen for a barcode to be entered after ID check
@@ -38,9 +39,10 @@ document.getElementById("fqc").addEventListener("click", function (e) {
 
 // make sure cursor is in text box on load
 window.onload = function () {
-  barcodeScanner.render((scannedBarcode) => {
-    document.getElementById("bcode").value = scannedBarcode;
-    check_barcode(scannedBarcode);
+  document.getElementById("bcode").value = "";
+  barcodeScanner.render((barcode) => {
+    document.getElementById("bcode").value = barcode;
+    check_barcode(barcode);
   });
   $("#bcode").focus();
 };
@@ -146,6 +148,10 @@ function check_in(barcode) {
 
 // retrieve name and ID for barcode
 function check_barcode(barcode) {
+
+  document.getElementById('current_bcode').value = barcode;
+  //spin while waiting
+  document.getElementById('spinspin').className = 'spinning';
 
   var postdata = {'session': APIKEY,
                   'barcode': barcode};
@@ -253,13 +259,16 @@ function check_barcode(barcode) {
         badaudio.play();
       }
 
-      document.getElementById('spinspin').className = 'hidden';
+      document.getElementById('bcode').value = '';
 
     },
     error: function(request, status, error) {
       alert("Something went wrong with the API call - probably the wifi is down.");
+      // don't clear input - user might want to retry
     }
   });
+
+  document.getElementById('spinspin').className = 'hidden';
 }
 
 
