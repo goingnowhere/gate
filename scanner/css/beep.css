@@ -1,3 +1,7 @@
+body {
+  background-color: rgb(235, 235, 235);
+}
+
 #maindiv {
   display: block;
   float: none;
@@ -10,16 +14,25 @@
   margin-left: auto;
 }
 
+#mdiv {
+  background-color: rgb(235, 235, 235);
+}
+
 .eebody {
   display: block;
   border-radius: 5px;
-  border-style: solid;
-  border-width: 1px;
-  padding: 10px;
-  margin: 15px;
+  /*
+    border-style: solid;
+    border-width: 1px;
+    */
+  margin: 0px;
+  padding: 15px;
 }
 
-#barcode_scanner {}
+#barcode_scanner {
+  background-color: whitesmoke;
+  border-radius: 7px;
+}
 
 .hidden {
   display: none;
@@ -30,7 +43,7 @@
 }
 
 .white {
-  background-color: white;
+  background-color: whitesmoke;
 }
 
 .green {
@@ -49,19 +62,19 @@
 }
 
 .txtheader {
-  /* margin: 5px; */
   margin-bottom: 15px;
   padding: 10px;
-  background-color: #ccd9ff;
   font-weight: bold;
-  font-size: 14px;
+  font-size: 24px;
   border-radius: 5px;
-  max-width: 110px;
+  /*max-width: 110px;*/
 }
 
 .inputcontainer {
   margin-top: 10px;
-  width: 100%;
+  padding: 25px;
+  background-color: rgb(224, 224, 224);
+  border-radius: 7px;
 }
 
 .bcodeinput {
@@ -69,25 +82,41 @@
   width: auto;
 }
 
-button {
-  padding: 0;
-  border: none;
+#bcode {
+  font-size: 14px;
+  padding: 6px;
+  border-radius: 7px;
+  border: 3px solid grey;
+  background-color: whitesmoke;
 }
 
-.manualbutton {
-  margin: 0;
-  display: inline-block;
-  background-color: #33d266;
-  padding-left: 10px;
-  padding-right: 10px;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  text-align: center;
-  font-weight: bold;
+#html5-qrcode-anchor-scan-type-change {
+  color: rgb(99, 98, 98);
+  text-transform: uppercase;
+  text-decoration: none !important;
+  /*background-color: rgb(220, 220, 255);*/
+  border-radius: 7px;
+  border: 1px solid rgb(99, 98, 98);
+  margin: 15px;
+  padding: 1px 5px 1px 5px;
+  cursor: pointer;
   font-size: 14px;
-  border-radius: 5px;
-  width: 40px;
-  border: none;
+}
+
+button {
+  background-color: rgb(220, 220, 255);
+  text-transform: uppercase;
+  border-radius: 7px;
+  border: 3px solid blue;
+  margin: 15px;
+  padding: 3px 9px 3px 9px;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+#manualbutton {
+  background-color: whitesmoke;
+  border: 3px solid grey;
 }
 
 .txttxt {
@@ -96,17 +125,25 @@ button {
 }
 
 .flush {
-  position: fixed;
-  top: 1em;
-  right: 1em;
+  position: inline;
+  padding-top: 35px;
+  width: 50%;
 }
 
 .flushtext {
-  background-color: #ccf5ff;
-  border-radius: 3px;
-  margin: 5px;
-  padding: 3px;
+  background-color: rgb(255, 225, 180);
+  border-radius: 7px;
+  border: 1px dashed red;
+  margin: 15px;
+  padding: 3px 9px 3px 9px;
   cursor: pointer;
+  font-size: 18px;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.flushtext:hover {
+  background-color: rgb(255, 133, 111);
 }
 
 .spinner {
@@ -130,6 +167,10 @@ button {
   -webkit-animation: spin 2s linear infinite;
   /* Setting up animation in any browser */
   animation: spin 2s linear infinite;
+}
+
+#barcode_scanner>div:nth-child(1)>img {
+  display: none;
 }
 
 /* browser configuration */
