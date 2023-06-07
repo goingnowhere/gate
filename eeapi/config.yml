@@ -1,0 +1,19 @@
+mariadb:
+  host: 172.20.1.10
+  user: ee
+  pass: <redacted>
+  db: nowhere_ee
+
+site:
+  timeout: 30
+
+oldkeyword: <redacted>
+keyword: <redacted>
+
+fistbump:
+  key: <redacted>
+
+quicket:
+  scanner_pin: <redacted>
+  product_id: <redacted>
+  scanner: beepbeep
