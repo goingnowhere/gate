@@ -52,8 +52,8 @@ window.onload = function () {
 // *********
 
 function flush_quicket() {
-  let postdata = { 'session': 'ksdfEDF45Fefa945df3F45fDer3E69EF03C42CCfdaawelvqeE4f5F2slFc935Cq' };
-  var purl = 'https://checkin.goingnowhere.org:2443/flushcache';
+  let postdata = { 'session': eeapi_session };
+  var purl = eeapi_url + '/flushcache';
 
   jQuery.ajax({
     url: purl,
@@ -90,10 +90,10 @@ function check_in(barcode) {
     return;
   }
   var postdata = {
-    'session': 'ksdfEDF45Fefa945df3F45fDer3E69EF03C42CCfdaawelvqeE4f5F2slFc935Cq',
+    'session': eeapi_session,
     'barcode': barcode
   };
-  var purl = 'https://checkin.goingnowhere.org:2443/checkin'
+  var purl = eeapi_url + '/checkin';
 
   jQuery.ajax({
     url: purl,
@@ -155,10 +155,10 @@ function check_barcode(barcode) {
   document.getElementById('spinspin').className = 'spinning';
 
   var postdata = {
-    'session': 'ksdfEDF45Fefa945df3F45fDer3E69EF03C42CCfdaawelvqeE4f5F2slFc935Cq',
+    'session': eeapi_session,
     'barcode': barcode
   };
-  var purl = 'https://checkin.goingnowhere.org:2443/barcode'
+  var purl = eeapi_url + '/barcode';
   jQuery.ajax({
     url: purl,
     cache: 'false',
