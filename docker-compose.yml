@@ -12,5 +12,10 @@ services:
       - ./scanner:/usr/share/nginx/html
       - ./ssl:/usr/share/nginx/ssl
     environment:
-      - eeapi_url=https://checkin.goingnowhere.org:2443
+      - eeapi_url=eeapi_url=https://checkin.goingnowhere.org:2443
       - eeapi_session=fake_session_token
+  eeapi:
+    container_name: gate_eeapi
+    build: ./eeapi/
+    volumes:
+      - ./eeapi/:/usr/src/app

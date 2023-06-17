@@ -3,4 +3,5 @@ RUN yarn add jquery@3.7.0 html5-qrcode@2.3.8
 
 FROM docker.io/nginx
 COPY --from=node_modules --chmod=755 node_modules /usr/share/nginx/js
+COPY --chmod=755 98-set-resolver.sh /docker-entrypoint.d/98-set-resolver.sh
 COPY --chmod=755 99-create-env-js.sh /docker-entrypoint.d/99-create-env-js.sh
