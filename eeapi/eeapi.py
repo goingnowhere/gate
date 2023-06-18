@@ -11,6 +11,7 @@ import requests
 import time
 import re
 import string
+import datetime
 from random import choice, randint
 import smtplib
 from email.message import EmailMessage
@@ -23,12 +24,13 @@ from PyPDF2 import PdfFileWriter
 from io import BytesIO
 
 ## global vars
-cfgfile = 'config.yml'
+cfgfile = '/usr/src/app/config.yml'
 config = {}
 cnx = ''
 ee_template = '/usr/src/app/templates/EE_2023_template.png'
 smtp_server = 'darkhorse.euroburners.net'
 year = 2023
+ee_end_date = datetime.datetime(2023,7,2)
 
 SESSION_TIME_LIMIT = 600
 CACHE_LIMIT = 9
@@ -187,13 +189,16 @@ def get_teams_from_uid(cnx, uid):
 
   elif access['Level'] == 0 and access['Dept'] != 0:   ##dept admin
     sql = ("SELECT teams.Id, teams.Teamname AS TEAM, teams.Dept FROM teams WHERE teams.Dept = %s")
-    cursor.execute(sql,(access['Dept']))
+    cursor.execute(sql,(access['Dept'],))
 
   else:   ## ordinary user with one team
     sql = ("SELECT teams.Id, teams.Teamname AS TEAM, teams.Dept FROM teams WHERE teams.Id = %s")
     cursor.execute(sql,(access['Team']))
 
+  
+  print(sql)
   for x in cursor:
+    pprint.pprint(x)
     dets[x['Id']] = x
   cursor.close()
 
@@ -416,6 +421,7 @@ def get_team_dept(cnx, tic):
 
 def uid_from_session(cnx, ses):
   uid = None
+  print(ses)
   sql = ("SELECT User FROM sessions WHERE Session = %s")
   cursor = cnx.cursor(buffered=True)
   cursor.execute(sql, (ses,))
@@ -509,11 +515,14 @@ def get_allocation_used(cnx, alloc):
 
 def assign_tkt(cnx, alloc, ticket, uid):
   ## retrieve allocation
-  m = re.match('^e_(\d+)_\d+$', alloc)
-  if m:
-   realal = m.group(1)
+  if alloc.isnumeric():
+    realal = alloc
   else:
-   return(0)
+    m = re.match('^e_(\d+)_\d+$', alloc)
+    if m:
+      realal = m.group(1)
+    else:
+      return({'state': 'failed', 'reason': 'invalid allocation string'})
   
   alloc_id = int(realal)
 
@@ -552,6 +561,7 @@ def assign_tkt(cnx, alloc, ticket, uid):
   return({'state': 'success', 'tref': id, 'team': alloc_dets['Team'], 'Team': alloc_dets['Team']})
 
 def quicket_checkin(cnx):
+
   cacha = []
   cons = {}
   cons['productId'] = config['quicket']['product_id']
@@ -649,16 +659,29 @@ def cache_count(cnx):
 
 def barcode_state(cnx, bcode):
 
+  print(bcode)
   if not bcode.isnumeric():
-    return()
+    return({'state': 'fail', 'reason': 'Invalid barcode'})
 
   ## check Quicket state
   args = {'key': config['fistbump']['key'], 'barcode': bcode}
   url = 'https://fistbump.goingnowhere.org/beepbeep'
   response = requests.request("POST", url, data = args)
   if response.text is None:
-    return()
+    return({'state': 'fail', 'reason': 'Fistbump API failed'})
   qstate = json.loads(response.text)
+
+  if not qstate:
+    return({'state': 'fail', 'reason': 'Invalid Barcode'})
+
+  if ee_end_date >= datetime.datetime.today():  ## in EE time so check EE status BOB
+    ee_dets = get_ticket_details(cnx, qstate['TID'])
+    pprint.pprint(ee_dets)
+    if 'Date' in ee_dets:
+      if datetime.datetime.strptime(ee_dets['Date'], "%Y-%m-%d") > datetime.datetime.today():
+        return({'state': 'fail', 'reason': "EE access only allowed from {}".format(ee_dets['Date'])})
+    else:
+        return({'state': 'fail', 'reason': "This ticket hasn't been enabled for EE"})
 
   sql = "SELECT Barcode, Created FROM checked_in WHERE Barcode = %s"
   ## check if it's in the checked in cache
@@ -679,6 +702,12 @@ def ci_stats():
   cstats = json.loads(response.text)
   return(cstats)
   
+def check_access(ses):
+  if ses == config['scanner']['key1']:
+    return(True)
+  else:
+    return(False)
+
 def check_in(cnx, bcode):
   sql = "INSERT INTO checked_in(Barcode, Ticket) VALUES(%s, %s)"
   
@@ -737,9 +766,8 @@ class ManglerAPI(object):
   def allocations(self, session, dept=0, raw = None):
     cnx = cnxpool.get_connection()
     uid = uid_from_session(cnx, session)
-    if (session == 'nada') :
+    if session == 'nada':
       uid = 1
-    
     if not uid:
       cnx.close()
       return({'state': 'failed ses'})
@@ -752,8 +780,9 @@ class ManglerAPI(object):
   @cherrypy.tools.json_out()
   def team_allocation(self, session, team):
     cnx = cnxpool.get_connection()
-    print(session, team)
     uid = uid_from_session(cnx, session)
+    if session == 'nada':
+      uid = 1
     if not uid:
       cnx.close()
       return({'state': 'failed ses'})
@@ -767,6 +796,7 @@ class ManglerAPI(object):
   def get_teams(self, session, raw = None):
     cnx = cnxpool.get_connection()
     uid = uid_from_session(cnx, session)
+    print(uid)
     if not uid:
       cnx.close()
       return()
@@ -863,6 +893,9 @@ class ManglerAPI(object):
   def assign_ticket(self, session, ticket, allocation):
     cnx = cnxpool.get_connection()
     uid = uid_from_session(cnx, session)
+    ## temp on while adding from csv
+    if session == 'nada':
+      uid = 1
     if not uid:
       cnx.close()
       return()
@@ -916,6 +949,8 @@ class ManglerAPI(object):
   def checkin(self, session, barcode):
     access = check_access(session)
     cnx = cnxpool.get_connection()
+      
+   
     res = check_in(cnx, barcode)
     cachecount = cache_count(cnx)
     if cachecount > CACHE_LIMIT:
@@ -941,7 +976,9 @@ class ManglerAPI(object):
   @cherrypy.expose
   @cherrypy.tools.json_out()
   def barcode(self, session, barcode):
-    access = check_access(session)
+    print(session, barcode)
+    if not check_access(session):
+      return({'status': 'Session not valid'})
     cnx = cnxpool.get_connection()
     res = barcode_state(cnx, barcode)
     cnx.close()
