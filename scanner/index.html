@@ -17,8 +17,16 @@
         <div class='headercontainer'>
           <div class='txtheader'>Scan barcode</div>
         </div>
-        <div class='bcodeinput'>
-          <input type='text' id='bcode'>
+
+        <div id="barcode_scanner"></div>
+
+        <div class="inputcontainer">
+          <div class='bcodeinput'>
+            <input type='text' inputmode='numeric' id='bcode'>
+          </div>
+          <button type="button" id="manualbutton">
+            <div class='manualbutton'>Go!</div>
+          </button>
         </div>
       </div>
 
@@ -81,8 +89,9 @@
     </div>
   </div>
 
-  <script src="/js/jquery.min.js"></script>
-  <script src="/js/beep.js"></script>
+  <script src="/js/jquery/dist/jquery.min.js"></script>
+  <script src="/js/html5-qrcode/html5-qrcode.min.js"></script>
+  <script src="/beep.js"></script>
 
 </body>
 

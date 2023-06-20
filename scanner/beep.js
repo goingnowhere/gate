@@ -3,17 +3,21 @@ var checkbcode = '';
 const APIKEY = '<APIKEY>';
 const goodaudio = new Audio("https://app.goingnowhere.org/sounds/boing.wav");
 const badaudio = new Audio("https://app.goingnowhere.org/sounds/arggg.wav");
+const barcodeScanner = new Html5QrcodeScanner(
+  "barcode_scanner", { fps: 10, qrbox: { width: 300, height: 150 } }
+);
 
 // Listen for a barcode to be entered
 document.getElementById("bcode").addEventListener("keypress", function (e) {
   if (e.key === 'Enter') {
-    let rawtext = document.getElementById('bcode').value;
-    document.getElementById('bcode').value = '';
-    document.getElementById('current_bcode').value = rawtext;
-    //spin while waiting
-    document.getElementById('spinspin').className = 'spinning';
-    check_barcode(rawtext);
+    let barcode = document.getElementById('bcode').value;
+    check_barcode(barcode);
   }
+});
+
+document.getElementById("manualbutton").addEventListener("click", function (e) {
+  let barcode = document.getElementById('bcode').value;
+  check_barcode(barcode);
 });
 
 // Listen for a barcode to be entered after ID check
@@ -34,7 +38,12 @@ document.getElementById("fqc").addEventListener("click", function (e) {
 });
 
 // make sure cursor is in text box on load
-window.onload = function() {
+window.onload = function () {
+  document.getElementById("bcode").value = "";
+  barcodeScanner.render((barcode) => {
+    document.getElementById("bcode").value = barcode;
+    check_barcode(barcode);
+  });
   $("#bcode").focus();
 };
 
@@ -50,7 +59,7 @@ function flush_quicket() {
   jQuery.ajax({
     url: purl,
     timeout: 10000,
-    cache: 'false',  
+    cache: 'false',
     crossDomain: true,
     dataType: 'json',
     type: "POST",
@@ -87,7 +96,7 @@ function check_in(barcode) {
 
   jQuery.ajax({
     url: purl,
-    cache: 'false', 
+    cache: 'false',
     crossDomain: true,
     dataType: 'json',
     type: "POST",
@@ -128,7 +137,7 @@ function check_in(barcode) {
         badaudio.play();
       }
       document.getElementById('spinspin').className = 'hidden';
-        
+
     },
     error: function(request, status, error) {
       alert("Something went wrong with the API call - probably the wifi is down.");
@@ -139,13 +148,17 @@ function check_in(barcode) {
 
 // retrieve name and ID for barcode
 function check_barcode(barcode) {
-  
+
+  document.getElementById('current_bcode').value = barcode;
+  //spin while waiting
+  document.getElementById('spinspin').className = 'spinning';
+
   var postdata = {'session': APIKEY,
                   'barcode': barcode};
   var purl = 'https://checkin.goingnowhere.org:2443/barcode'
   jQuery.ajax({
     url: purl,
-    cache: 'false', 
+    cache: 'false',
     crossDomain: true,
     dataType: 'json',
     type: "POST",
@@ -246,13 +259,16 @@ function check_barcode(barcode) {
         badaudio.play();
       }
 
-      document.getElementById('spinspin').className = 'hidden';
-        
+      document.getElementById('bcode').value = '';
+
     },
     error: function(request, status, error) {
       alert("Something went wrong with the API call - probably the wifi is down.");
+      // don't clear input - user might want to retry
     }
   });
+
+  document.getElementById('spinspin').className = 'hidden';
 }
 
 

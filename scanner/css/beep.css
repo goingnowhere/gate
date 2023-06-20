@@ -1,0 +1,195 @@
+body {
+  background-color: rgb(235, 235, 235);
+}
+
+#maindiv {
+  display: block;
+  float: none;
+  position: static;
+  justify-content: center;
+  justify-self: center;
+  min-width: 360px;
+  max-width: 500px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+#mdiv {
+  background-color: rgb(235, 235, 235);
+}
+
+.eebody {
+  display: block;
+  border-radius: 5px;
+  /*
+    border-style: solid;
+    border-width: 1px;
+    */
+  margin: 0px;
+  padding: 15px;
+}
+
+#barcode_scanner {
+  background-color: whitesmoke;
+  border-radius: 7px;
+}
+
+.hidden {
+  display: none;
+}
+
+.shown {
+  display: block;
+}
+
+.white {
+  background-color: whitesmoke;
+}
+
+.green {
+  background-color: green;
+}
+
+.red {
+  background-color: red;
+}
+
+.txtblock {}
+
+.headercontainer {
+  display: inline-block;
+  min-width: 200px;
+}
+
+.txtheader {
+  margin-bottom: 15px;
+  padding: 10px;
+  font-weight: bold;
+  font-size: 24px;
+  border-radius: 5px;
+  /*max-width: 110px;*/
+}
+
+.inputcontainer {
+  margin-top: 10px;
+  padding: 25px;
+  background-color: rgb(224, 224, 224);
+  border-radius: 7px;
+}
+
+.bcodeinput {
+  display: inline-block;
+  width: auto;
+}
+
+#bcode {
+  font-size: 14px;
+  padding: 6px;
+  border-radius: 7px;
+  border: 3px solid grey;
+  background-color: whitesmoke;
+}
+
+#html5-qrcode-anchor-scan-type-change {
+  color: rgb(99, 98, 98);
+  text-transform: uppercase;
+  text-decoration: none !important;
+  /*background-color: rgb(220, 220, 255);*/
+  border-radius: 7px;
+  border: 1px solid rgb(99, 98, 98);
+  margin: 15px;
+  padding: 1px 5px 1px 5px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+button {
+  background-color: rgb(220, 220, 255);
+  text-transform: uppercase;
+  border-radius: 7px;
+  border: 3px solid blue;
+  margin: 15px;
+  padding: 3px 9px 3px 9px;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+#manualbutton {
+  background-color: whitesmoke;
+  border: 3px solid grey;
+}
+
+.txttxt {
+  display: inline-block;
+  max-width: 110px;
+}
+
+.flush {
+  position: inline;
+  padding-top: 35px;
+  width: 50%;
+}
+
+.flushtext {
+  background-color: rgb(255, 225, 180);
+  border-radius: 7px;
+  border: 1px dashed red;
+  margin: 15px;
+  padding: 3px 9px 3px 9px;
+  cursor: pointer;
+  font-size: 18px;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.flushtext:hover {
+  background-color: rgb(255, 133, 111);
+}
+
+.spinner {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.loader {
+  margin-left: auto;
+  margin-right: auto;
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid black;
+  border-bottom: 16px solid red;
+  border-right: 16px solid white;
+  border-left: 16px solid green;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite;
+  /* Setting up animation in any browser */
+  animation: spin 2s linear infinite;
+}
+
+#barcode_scanner>div:nth-child(1)>img {
+  display: none;
+}
+
+/* browser configuration */
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
