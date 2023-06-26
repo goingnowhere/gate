@@ -124,6 +124,8 @@ function check_in(barcode) {
         change_colour('green');
         setTimeout(function () { change_colour('white'); }, 3000);
         goodaudio.play();
+        document.getElementById('bcode').value = '';
+
       } else if (data === 'FAIL') {
         document.getElementById('errorclass').innerHTML = "Check in error!";
         document.getElementById('errorsolution').innerHTML = data['Message'];
@@ -271,7 +273,7 @@ function check_barcode(barcode) {
         badaudio.play();
       }
 
-      document.getElementById('bcode').value = '';
+      // don't clear input - user might want to retry
 
     },
     error: function (request, status, error) {
