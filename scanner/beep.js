@@ -4,7 +4,13 @@ const APIKEY = '<APIKEY>';
 const goodaudio = new Audio("https://app.goingnowhere.org/sounds/boing.wav");
 const badaudio = new Audio("https://app.goingnowhere.org/sounds/arggg.wav");
 const barcodeScanner = new Html5QrcodeScanner(
-  "barcode_scanner", { fps: 10, qrbox: { width: 300, height: 150 } }
+  "barcode_scanner",
+  {
+    fps: 10,
+    qrbox: { width: 300, height: 150 },
+    supportedScanTypes: [Html5QrcodeScanType.SCAN_TYPE_CAMERA],
+    aspectRatio: 0.5,
+  }
 );
 
 // Listen for a barcode to be entered
