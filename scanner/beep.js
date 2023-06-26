@@ -4,7 +4,13 @@ const APIKEY = '<APIKEY>';
 const goodaudio = new Audio("https://app.goingnowhere.org/sounds/boing.wav");
 const badaudio = new Audio("https://app.goingnowhere.org/sounds/arggg.wav");
 const barcodeScanner = new Html5QrcodeScanner(
-  "barcode_scanner", { fps: 10, qrbox: { width: 300, height: 150 } }
+  "barcode_scanner",
+  {
+    fps: 10,
+    qrbox: { width: 300, height: 150 },
+    supportedScanTypes: [Html5QrcodeScanType.SCAN_TYPE_CAMERA],
+    aspectRatio: 0.5,
+  }
 );
 
 // Listen for a barcode to be entered
@@ -42,6 +48,8 @@ window.onload = function () {
   document.getElementById("bcode").value = "";
   barcodeScanner.render((barcode) => {
     document.getElementById("bcode").value = barcode;
+    barcodeScanner.pause(true);
+    window.setTimeout(() => barcodeScanner.resume(), 2000);
     check_barcode(barcode);
   });
   $("#bcode").focus();
@@ -116,6 +124,8 @@ function check_in(barcode) {
         change_colour('green');
         setTimeout(function () { change_colour('white'); }, 3000);
         goodaudio.play();
+        document.getElementById('bcode').value = '';
+
       } else if (data === 'FAIL') {
         document.getElementById('errorclass').innerHTML = "Check in error!";
         document.getElementById('errorsolution').innerHTML = data['Message'];
@@ -263,7 +273,7 @@ function check_barcode(barcode) {
         badaudio.play();
       }
 
-      document.getElementById('bcode').value = '';
+      // don't clear input - user might want to retry
 
     },
     error: function (request, status, error) {
