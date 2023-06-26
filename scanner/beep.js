@@ -48,6 +48,8 @@ window.onload = function () {
   document.getElementById("bcode").value = "";
   barcodeScanner.render((barcode) => {
     document.getElementById("bcode").value = barcode;
+    barcodeScanner.pause(true);
+    window.setTimeout(() => barcodeScanner.resume(), 2000);
     check_barcode(barcode);
   });
   $("#bcode").focus();
