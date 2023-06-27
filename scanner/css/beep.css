@@ -110,8 +110,7 @@ button {
   font-size: 18px;
 }
 
-#manualbutton {
-  background-color: whitesmoke;
+#manualButton {
   border: 3px solid grey;
 }
 

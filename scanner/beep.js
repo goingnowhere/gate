@@ -22,19 +22,17 @@ document.getElementById("bcode").addEventListener("keypress", function (e) {
   }
 });
 
-document.getElementById("manualbutton").addEventListener("click", function (e) {
+document.getElementById("manualButton").addEventListener("click", function (e) {
   let barcode = document.getElementById('bcode').value;
   check_barcode(barcode);
 });
 
-// Listen for a barcode to be entered after ID check
-document.getElementById("verifybcode").addEventListener("keypress", function (e) {
-  if (e.key === 'Enter') {
-    let rawtext = document.getElementById('verifybcode').value;
-    document.getElementById('verifybcode').value = '';
-    document.getElementById('spinspin').className = 'spinning';
-    check_in(rawtext);
-  }
+document.getElementById("admitButton").addEventListener("click", function (e) {
+  check_in();
+});
+
+document.getElementById("abortButton").addEventListener("click", function (e) {
+  abort();
 });
 
 // Listen for quicket flush click
@@ -46,14 +44,12 @@ document.getElementById("fqc").addEventListener("click", function (e) {
 
 // make sure cursor is in text box on load
 window.onload = function () {
-  document.getElementById("bcode").value = "";
+  reset_form();
   barcodeScanner.render((barcode) => {
     document.getElementById("bcode").value = barcode;
     barcodeScanner.pause(true);
-    window.setTimeout(() => barcodeScanner.resume(), 2000);
     check_barcode(barcode);
   });
-  $("#bcode").focus();
 };
 
 
@@ -83,22 +79,30 @@ function flush_quicket() {
   });
 }
 
+function reset_form() {
+  document.getElementById("admitButton").disabled = true;
+  document.getElementById("bcode").value = "";
 
-function check_in(barcode) {
-  // do basic check to verify working with same barcode
-  let checkbcode = document.getElementById('current_bcode').value;
-  if (checkbcode !== barcode) {
-    document.getElementById('errorclass').innerHTML = "Check in error!";
-    document.getElementById('errorsolution').innerHTML = "Different barcode scanned! Please rescan initial barcode and verify ID and then scan it a second time to check in!";
-    document.getElementById('scanpage').className = 'infoblock';
-    document.getElementById('idcheck').className = 'hidden';
-    document.getElementById('errordiv').className = 'infoblock';
-    change_colour('red');
-    setTimeout(function () { change_colour('white'); }, 3000);
-    document.getElementById('spinspin').className = 'hidden';
-    badAudio.play();
-    return;
-  }
+  change_colour('white');
+  document.getElementById('scanpage').className = 'infoblock';
+  document.getElementById('idcheck').className = 'hidden';
+  document.getElementById('errordiv').className = 'hidden';
+  document.getElementById('xxcheck').className = 'hidden';
+  document.getElementById('spinspin').className = 'hidden';
+
+  try { barcodeScanner.resume(); } catch { }
+  $("#bcode").focus();
+}
+
+function abort() {
+  console.log("Aborted!")
+  reset_form();
+}
+
+function check_in() {
+  var barcode = document.getElementById('bcode').value;
+  console.log("Admitted one: " + barcode);
+
   var postdata = {
     'session': APIKEY,
     'barcode': barcode
@@ -123,7 +127,7 @@ function check_in(barcode) {
         document.getElementById('errordiv').className = 'hidden';
         document.getElementById('xxcheck').className = 'hidden';
         change_colour('green');
-        setTimeout(function () { change_colour('white'); }, 3000);
+        setTimeout(reset_form, 2000);
         tadaAudio.play();
         document.getElementById('bcode').value = '';
 
@@ -161,8 +165,6 @@ function check_in(barcode) {
 
 // retrieve name and ID for barcode
 function check_barcode(barcode) {
-
-  document.getElementById('current_bcode').value = barcode;
   //spin while waiting
   document.getElementById('spinspin').className = 'spinning';
 
@@ -191,8 +193,8 @@ function check_barcode(barcode) {
         document.getElementById('scanpage').className = 'hidden';
         document.getElementById('errordiv').className = 'hidden';
         document.getElementById('idcheck').className = 'infoblock';
-        document.getElementById('current_bcode').value = barcode;
-        $("#verifybcode").focus();
+        document.getElementById("admitButton").disabled = false;
+        $("#admitButton").focus();
 
         // CHECK IF THIS IS A CHILDREN TICKET
         if (data['Type'] === 'Children under 14') {
@@ -226,7 +228,7 @@ function check_barcode(barcode) {
           document.getElementById('idcheck').className = 'hidden';
           document.getElementById('errordiv').className = 'infoblock';
           change_colour('red');
-          setTimeout(function () { change_colour('white'); }, 3000);
+          setTimeout(reset_form, 3000);
           badAudio.play();
 
           // CHECK IF THIS IS A FAILED EE ENTRY
@@ -237,8 +239,10 @@ function check_barcode(barcode) {
           document.getElementById('idcheck').className = 'hidden';
           document.getElementById('errordiv').className = 'infoblock';
           change_colour('red');
-          setTimeout(function () { change_colour('white'); }, 3000);
+          setTimeout(reset_form, 3000);
           badAudio.play();
+        } else {
+          goodAudio.play();
         }
 
       } else if (data['CI'] === 'Yes') {
@@ -248,7 +252,7 @@ function check_barcode(barcode) {
         document.getElementById('idcheck').className = 'hidden';
         document.getElementById('errordiv').className = 'infoblock';
         change_colour('red');
-        setTimeout(function () { change_colour('white'); }, 3000);
+        setTimeout(reset_form, 3000);
         badAudio.play();
 
       } else if (data['state'] === 'fail') {
@@ -258,7 +262,7 @@ function check_barcode(barcode) {
         document.getElementById('idcheck').className = 'hidden';
         document.getElementById('errordiv').className = 'infoblock';
         change_colour('red');
-        setTimeout(function () { change_colour('white'); }, 3000);
+        setTimeout(reset_form, 3000);
         badAudio.play();
 
       } else {
@@ -273,17 +277,15 @@ function check_barcode(barcode) {
         document.getElementById('idcheck').className = 'hidden';
         document.getElementById('errordiv').className = 'infoblock';
         change_colour('red');
-        setTimeout(function () { change_colour('white'); }, 3000);
+        setTimeout(reset_form, 3000);
         badAudio.play();
       }
-
-      // don't clear input - user might want to retry
-
     },
     error: function (request, status, error) {
       alert("Something went wrong with the API call - probably the wifi is down.");
+      change_colour('red');
+      setTimeout(reset_form, 3000);
       badAudio.play();
-      // don't clear input - user might want to retry
     }
   });
 

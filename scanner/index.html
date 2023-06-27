@@ -22,10 +22,10 @@
 
         <div class="inputcontainer">
           <div class='bcodeinput'>
-            <input type='text' inputmode='numeric' id='bcode'>
+            <input type='text' inputmode='numeric' id='bcode' autofocus="true">
           </div>
-          <button type="button" id="manualbutton">
-            <div class='manualbutton'>Go!</div>
+          <button type="button" id="manualButton" class="white">
+            <div class='manualButton'>Go!</div>
           </button>
         </div>
       </div>
@@ -59,8 +59,12 @@
             Verify name and ID against documents and then scan barcode again. If the name
             and ID don't match, just hit enter.
           </div>
-          <input type='hidden' id='current_bcode' name='cbc' value=''>
-          <div class='bcodeinput'><input type='text' id='verifybcode'></div>
+          <button type="button" id="admitButton" class="green" disabled="true">
+            <div class='manualButton'>ADMIT ONE HIPPIE</div>
+          </button>
+          <button type="button" id="abortButton" class="red">
+            <div class='manualButton'>ABORT</div>
+          </button>
         </div>
       </div>
 
