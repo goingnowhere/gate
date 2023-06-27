@@ -1,8 +1,9 @@
 
 // ./env.js: const APIKEY = '*************'
 var checkbcode = '';
-const goodaudio = new Audio("/mp3/ding-idea-40142.mp3");  // https://pixabay.com/sound-effects/ding-idea-40142/
-const badaudio = new Audio("/mp3/invalid-selection-39351.mp3");   // https://pixabay.com/sound-effects/invalid-selection-39351/
+const goodAudio = new Audio("/mp3/ding-idea-40142.mp3");  // https://pixabay.com/sound-effects/ding-idea-40142/
+const badAudio = new Audio("/mp3/invalid-selection-39351.mp3");   // https://pixabay.com/sound-effects/invalid-selection-39351/
+const tadaAudio = new Audio("/mp3/invalid-selection-39351.mp3");   // https://pixabay.com/sound-effects/tada-fanfare-a-6313/
 const barcodeScanner = new Html5QrcodeScanner(
   "barcode_scanner",
   {
@@ -95,7 +96,7 @@ function check_in(barcode) {
     change_colour('red');
     setTimeout(function () { change_colour('white'); }, 3000);
     document.getElementById('spinspin').className = 'hidden';
-    badaudio.play();
+    badAudio.play();
     return;
   }
   var postdata = {
@@ -123,7 +124,7 @@ function check_in(barcode) {
         document.getElementById('xxcheck').className = 'hidden';
         change_colour('green');
         setTimeout(function () { change_colour('white'); }, 3000);
-        goodaudio.play();
+        goodAudio.play();
         document.getElementById('bcode').value = '';
 
       } else if (data === 'FAIL') {
@@ -135,7 +136,7 @@ function check_in(barcode) {
         document.getElementById('xxcheck').className = 'hidden';
         change_colour('red');
         setTimeout(function () { change_colour('white'); }, 3000);
-        badaudio.play();
+        badAudio.play();
 
       } else {
         document.getElementById('errorclass').innerHTML = "Ticket isn't valid!";
@@ -146,7 +147,7 @@ function check_in(barcode) {
         document.getElementById('xxcheck').className = 'hidden';
         change_colour('red');
         setTimeout(function () { change_colour('white'); }, 3000);
-        badaudio.play();
+        badAudio.play();
       }
       document.getElementById('spinspin').className = 'hidden';
 
@@ -223,7 +224,7 @@ function check_barcode(barcode) {
           document.getElementById('errordiv').className = 'infoblock';
           change_colour('red');
           setTimeout(function () { change_colour('white'); }, 3000);
-          badaudio.play();
+          badAudio.play();
 
           // CHECK IF THIS IS A FAILED EE ENTRY
         } else if (data['Type'] === 'Donation for Arts') {
@@ -234,7 +235,7 @@ function check_barcode(barcode) {
           document.getElementById('errordiv').className = 'infoblock';
           change_colour('red');
           setTimeout(function () { change_colour('white'); }, 3000);
-          badaudio.play();
+          badAudio.play();
         }
 
       } else if (data['CI'] === 'Yes') {
@@ -245,7 +246,7 @@ function check_barcode(barcode) {
         document.getElementById('errordiv').className = 'infoblock';
         change_colour('red');
         setTimeout(function () { change_colour('white'); }, 3000);
-        badaudio.play();
+        badAudio.play();
 
       } else if (data['state'] === 'fail') {
         document.getElementById('errorclass').innerHTML = data['reason']
@@ -255,7 +256,7 @@ function check_barcode(barcode) {
         document.getElementById('errordiv').className = 'infoblock';
         change_colour('red');
         setTimeout(function () { change_colour('white'); }, 3000);
-        badaudio.play();
+        badAudio.play();
 
       } else {
         if (data.hasOwnProperty('status')) {
@@ -270,7 +271,7 @@ function check_barcode(barcode) {
         document.getElementById('errordiv').className = 'infoblock';
         change_colour('red');
         setTimeout(function () { change_colour('white'); }, 3000);
-        badaudio.play();
+        badAudio.play();
       }
 
       // don't clear input - user might want to retry
