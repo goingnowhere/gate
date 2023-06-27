@@ -3,7 +3,7 @@
 var checkbcode = '';
 const goodAudio = new Audio("/mp3/ding-idea-40142.mp3");  // https://pixabay.com/sound-effects/ding-idea-40142/
 const badAudio = new Audio("/mp3/invalid-selection-39351.mp3");   // https://pixabay.com/sound-effects/invalid-selection-39351/
-const tadaAudio = new Audio("/mp3/invalid-selection-39351.mp3");   // https://pixabay.com/sound-effects/tada-fanfare-a-6313/
+const tadaAudio = new Audio("/mp3/tada-fanfare-a-6313.mp3");  // https://pixabay.com/sound-effects/tada-fanfare-a-6313/
 const barcodeScanner = new Html5QrcodeScanner(
   "barcode_scanner",
   {
