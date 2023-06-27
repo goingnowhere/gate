@@ -1,8 +1,8 @@
 
 // ./env.js: const APIKEY = '*************'
 var checkbcode = '';
-const goodaudio = new Audio("https://app.goingnowhere.org/sounds/boing.wav");
-const badaudio = new Audio("https://app.goingnowhere.org/sounds/argg.wav");
+const goodaudio = new Audio("/mp3/ding-idea-40142.mp3");  // https://pixabay.com/sound-effects/ding-idea-40142/
+const badaudio = new Audio("/mp3/invalid-selection-39351.mp3");   // https://pixabay.com/sound-effects/invalid-selection-39351/
 const barcodeScanner = new Html5QrcodeScanner(
   "barcode_scanner",
   {
