@@ -214,7 +214,7 @@ function check_barcode(barcode) {
 
           // CHECK IF THIS IS A CARER
         } else if (data['Type'] === 'Carer') {
-          document.getElementById('extra_check').innerHTML = "This is a carer ticket. Please check if they need Inclusion Team assistance and point them towards Malfare";
+          document.getElementById('extra_check').innerHTML = "This is a carer ticket. Director required for waiver. Please radio for director.";
           document.getElementById('xxcheck').className = 'txtblock';
           change_colour('yellow');
           setTimeout(function () { change_colour('white'); }, 3000);
