@@ -124,7 +124,7 @@ function check_in(barcode) {
         document.getElementById('xxcheck').className = 'hidden';
         change_colour('green');
         setTimeout(function () { change_colour('white'); }, 3000);
-        goodAudio.play();
+        tadaAudio.play();
         document.getElementById('bcode').value = '';
 
       } else if (data === 'FAIL') {
@@ -200,6 +200,7 @@ function check_barcode(barcode) {
           document.getElementById('xxcheck').className = 'txtblock';
           change_colour('yellow');
           setTimeout(function () { change_colour('white'); }, 3000);
+          goodAudio.play();
 
           // CHECK IF THIS IS A 14-18 TICKET
         } else if (data['Type'] === '14 to 18 y.o.') {
@@ -207,6 +208,7 @@ function check_barcode(barcode) {
           document.getElementById('xxcheck').className = 'txtblock';
           change_colour('yellow');
           setTimeout(function () { change_colour('white'); }, 3000);
+          goodAudio.play();
 
           // CHECK IF THIS IS A CARER
         } else if (data['Type'] === 'Carer') {
@@ -214,6 +216,7 @@ function check_barcode(barcode) {
           document.getElementById('xxcheck').className = 'txtblock';
           change_colour('yellow');
           setTimeout(function () { change_colour('white'); }, 3000);
+          goodAudio.play();
 
           // CHECK IF THIS IS AN ART TICKET
         } else if (data['Type'] === 'Donation for Arts') {
@@ -279,6 +282,7 @@ function check_barcode(barcode) {
     },
     error: function (request, status, error) {
       alert("Something went wrong with the API call - probably the wifi is down.");
+      badAudio.play();
       // don't clear input - user might want to retry
     }
   });
