@@ -2,7 +2,7 @@
 // ./env.js: const APIKEY = '*************'
 var checkbcode = '';
 const goodaudio = new Audio("https://app.goingnowhere.org/sounds/boing.wav");
-const badaudio = new Audio("https://app.goingnowhere.org/sounds/arggg.wav");
+const badaudio = new Audio("https://app.goingnowhere.org/sounds/argg.wav");
 const barcodeScanner = new Html5QrcodeScanner(
   "barcode_scanner",
   {
